@@ -1,12 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Frag1.Fragment1">
 
+
+    <TextView
+        android:id="@+id/update"
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:textSize="20dp"
+        android:background="#B8B8BA"
+        android:gravity="center_vertical"
+        android:fontFamily="@font/neodgm"
+        android:textColor="#707070"
+        android:text="ㅇㅇㅇ님의 미니홈피"/>
+
+
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler1"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-</FrameLayout>
+        android:layout_height="match_parent"
+        />
+
+</LinearLayout>

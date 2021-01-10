@@ -9,6 +9,8 @@
     tools:context=".MainActivity">
 
 
+
+
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/viewpager"
         android:layout_width="match_parent"
@@ -44,6 +46,8 @@
             android:layout_height="wrap_content"
             android:text="Wednesday" />
     </com.google.android.material.tabs.TabLayout>
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
