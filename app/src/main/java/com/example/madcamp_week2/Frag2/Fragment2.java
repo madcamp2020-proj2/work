@@ -114,9 +114,9 @@ public class Fragment2 extends Fragment {
         if (requestCode == 1111) {
             try {
                 if (data.getClipData() == null) {
-                    Uri a = data.getData();
+                    Uri imageUri = data.getData();
                     InputStream is = getContext().getContentResolver().openInputStream(data.getData());
-                    Glide.with(this).load(a.toString()).into(imageView);
+                    Glide.with(this).load(imageUri.toString()).into(imageView);
                     imageData = getBytes(is);
                 } else {
                     ClipData clipData = data.getClipData();
@@ -127,8 +127,10 @@ public class Fragment2 extends Fragment {
                     }
                     Log.d("result: ", "선택한 사진 개수: " + clipData.getItemCount());
                 }
+            } catch (RuntimeException e) {
+                Log.e("error", "Runtime exception");
             } catch (IOException e) {
-                e.printStackTrace();
+                Log.e("error", "IOException exception");
             }
         }
     }
