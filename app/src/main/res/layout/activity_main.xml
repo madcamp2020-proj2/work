@@ -17,7 +17,7 @@
         android:layout_height="match_parent"
         android:background="@color/white"
         app:layout_constraintTop_toTopOf="@+id/tabLayout"
-        tools:layout_editor_absoluteX="-89dp"></androidx.viewpager.widget.ViewPager>
+        tools:layout_editor_absoluteX="-89dp"/>
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayout"

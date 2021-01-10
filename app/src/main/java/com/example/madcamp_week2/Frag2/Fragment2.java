@@ -2,9 +2,12 @@
 package com.example.madcamp_week2.Frag2;
 
 
+import android.content.ClipData;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
@@ -14,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.madcamp_week2.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -57,13 +61,21 @@ public class Fragment2 extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view =  inflater.inflate(R.layout.fragment_2, container, false);
+        View view = inflater.inflate(R.layout.fragment_2, container, false);
         load = (FloatingActionButton) view.findViewById(R.id.fab);
         upload = (FloatingActionButton) view.findViewById(R.id.fabUpload);
         serverLoad = (FloatingActionButton) view.findViewById(R.id.fabLoad);
         multiLoad = (FloatingActionButton) view.findViewById(R.id.fabMulti);
         imageView = view.findViewById(R.id.imageView);
         initRetrofitClient();
+
+        load.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivityForResult(getImageFromAlbum(), 1111);
+            }
+        });
+
         upload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -94,6 +106,31 @@ public class Fragment2 extends Fragment {
         });
 
         return view;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1111) {
+            try {
+                if (data.getClipData() == null) {
+                    Uri a = data.getData();
+                    InputStream is = getContext().getContentResolver().openInputStream(data.getData());
+                    Glide.with(this).load(a.toString()).into(imageView);
+                    imageData = getBytes(is);
+                } else {
+                    ClipData clipData = data.getClipData();
+                    int dataNum = clipData.getItemCount();
+                    for (int i = 0; i < dataNum; i++) {
+                        InputStream is = getContext().getContentResolver().openInputStream(clipData.getItemAt(i).getUri());
+                        imageGroup.add(getBytes(is));
+                    }
+                    Log.d("result: ", "선택한 사진 개수: " + clipData.getItemCount());
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     private byte[] getBytes(InputStream is) throws IOException {
