@@ -2,6 +2,7 @@ package com.example.madcamp_week2.Frag2;
 
 import android.app.DownloadManager;
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Environment;
 import android.util.Log;
@@ -20,6 +21,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.io.File;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.List;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -32,6 +34,7 @@ public class ServerAlbumAdapter extends RecyclerView.Adapter<ServerAlbumAdapter.
     private ArrayList<String> urlList;
     private String BASE_URL = "http://192.249.18.236:3000";
     private Context context;
+    private ApiService apiService = initRetrofitClient();
 
     ServerAlbumAdapter(ArrayList<String> data, Context activity) {
         urlList = data;
@@ -93,12 +96,13 @@ public class ServerAlbumAdapter extends RecyclerView.Adapter<ServerAlbumAdapter.
     }
 
     private void deleteImage(String location) {
-        ApiService apiService = initRetrofitClient();
         Call<ResponseBody> call = apiService.delImage(location);
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 Log.d("Status: ", "connection complete");
+                urlList.remove(location);
+                notifyDataSetChanged();
             }
 
             @Override
