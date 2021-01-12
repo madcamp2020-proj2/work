@@ -49,8 +49,8 @@ public class SplashActivity extends AppCompatActivity {
                 GraphRequest graphRequest = GraphRequest.newMeRequest(loginResult.getAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
                     @Override
                     public void onCompleted(JSONObject object, GraphResponse response) {
-                        startActivity(new Intent(getApplication(), MainActivity.class)); // 로딩 끝나고, 메인으로
                         finish();
+                        startActivity(new Intent(getApplication(), MainActivity.class)); // 로딩 끝나고, 메인으로
                         Log.v("result",object.toString());
                     }
                 });
@@ -83,7 +83,11 @@ public class SplashActivity extends AppCompatActivity {
             finish();
         }
     }
+
+
 */
+
+
     @Override
     public void onBackPressed() {
         // 뒤로 가기 못하게
@@ -94,5 +98,7 @@ public class SplashActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         callbackManager.onActivityResult(requestCode, resultCode, data);
     }
+
+
 
 }

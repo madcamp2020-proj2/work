@@ -67,14 +67,25 @@ public class Fragment1 extends Fragment {
 //        list = Contacts.createContactsList(getActivity());
         AscendingName ascending = new AscendingName();
 
+        Button uploadbtn = rootView.findViewById(R.id.upload);
+        uploadbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("asdf", "clicked");
+                new JSONTask().execute("http://192.249.18.236:3000/post");
+            }
+        });
+
+/*
         TextView update = rootView.findViewById(R.id.update);
         update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new JSONTask().execute("http://192.249.18.210:3000/post");
+                Log.d("asdf", "clicked");
+                new JSONTask().execute("http://192.249.18.236:3000/post");
             }
         });
-
+*/
 
         //리사이클러뷰 나누는 선
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(), new LinearLayoutManager(getContext()).getOrientation());
@@ -192,6 +203,10 @@ public class Fragment1 extends Fragment {
         public int compare(Contacts o1, Contacts o2) {
             return o1.getName().compareTo(o2.getName());
         }
+    }
+
+    private void postCantact() {
+
     }
 
 }
