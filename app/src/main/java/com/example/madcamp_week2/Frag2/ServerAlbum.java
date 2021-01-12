@@ -1,6 +1,7 @@
 package com.example.madcamp_week2.Frag2;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -21,7 +22,7 @@ public class ServerAlbum extends AppCompatActivity {
         ArrayList<String> ulrList = extras.getStringArrayList("urlData");
         RecyclerView recyclerView = findViewById(R.id.recycle_view);
         ServerAlbumAdapter adapter = new ServerAlbumAdapter(ulrList, this);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
         recyclerView.setAdapter(adapter);
     }
 }

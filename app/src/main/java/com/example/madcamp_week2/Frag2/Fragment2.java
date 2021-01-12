@@ -46,8 +46,7 @@ public class Fragment2 extends Fragment {
     private FloatingActionButton multiLoad;
     private ImageView imageView;
     private byte[] imageData;
-    private List<byte[]> imageGroup = new ArrayList();
-    private int token = 0;
+    private List<byte[]> imageGroup;
     ArrayList<String> urlList;
 
     public Fragment2() {
@@ -99,6 +98,7 @@ public class Fragment2 extends Fragment {
             public void onClick(View v) {
                 try {
                     postMultiImage(imageGroup, imageGroup.size());
+//                } catch (IOException | InterruptedException e) {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -119,6 +119,7 @@ public class Fragment2 extends Fragment {
                     Glide.with(this).load(imageUri.toString()).into(imageView);
                     imageData = getBytes(is);
                 } else {
+                    imageGroup = new ArrayList();
                     ClipData clipData = data.getClipData();
                     int dataNum = clipData.getItemCount();
                     for (int i = 0; i < dataNum; i++) {
@@ -150,7 +151,7 @@ public class Fragment2 extends Fragment {
 
     private void postimage(byte[] data) throws IOException {
         RequestBody reqfile = RequestBody.create(MediaType.parse("image/*"), data);
-        MultipartBody.Part body = MultipartBody.Part.createFormData("upload", "asdf", reqfile);
+        MultipartBody.Part body = MultipartBody.Part.createFormData("upload", "a", reqfile);
         RequestBody name = RequestBody.create(MediaType.parse("image/png"), "upload");
 
         Call<ResponseBody> req = apiService.postImage(body, name);
@@ -175,11 +176,9 @@ public class Fragment2 extends Fragment {
         List<MultipartBody.Part> parts = new ArrayList();
         for (int i = 0; i < size; i++) {
             RequestBody reqfile = createPartFromByte(dataGroup.get(i));
-            MultipartBody.Part part = prepareFilePart("uploading" + token, reqfile);
-            Log.d("result: ", "" + token);
+            MultipartBody.Part part = prepareFilePart("uploading", reqfile, i);
             parts.add(part);
         }
-        token++;
 
         RequestBody name = RequestBody.create(MediaType.parse("image/png"), "upload");
         Call<ResponseBody> call = apiService.postMultiImage(parts, name);
@@ -200,12 +199,19 @@ public class Fragment2 extends Fragment {
         });
     }
 
+//    private void postMultiImage(List<byte[]> dataGroup, int size) throws IOException, InterruptedException {
+//        for (int i = 0; i < size; i++) {
+//            postimage(dataGroup.get(i));
+//            Thread.sleep(1000);
+//        }
+//    }
+
     private RequestBody createPartFromByte(byte[] data) {
         return RequestBody.create(MediaType.parse("image/*"), data);
     }
 
-    private MultipartBody.Part prepareFilePart(String partName, RequestBody reqfile) {
-        return MultipartBody.Part.createFormData(partName, "asdf", reqfile);
+    private MultipartBody.Part prepareFilePart(String partName, RequestBody reqfile, int tag) {
+        return MultipartBody.Part.createFormData(partName, "z" + tag, reqfile);
     }
 
     private void loadImageUrl() {

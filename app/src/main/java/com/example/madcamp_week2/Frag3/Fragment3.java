@@ -42,10 +42,9 @@ public class Fragment3 extends Fragment {
         urlEdit = view.findViewById(R.id.urlEdit);
         WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
-        webView.setWebViewClient(new WebViewClient());
-        PackageInfo webViewPackageInfo = webView.getCurrentWebViewPackage();
+//        webView.setWebViewClient(new WebViewClient());
+        webView.setWebChromeClient(new WebChromeClient());
 
-//        webView.setWebChromeClient(new WebChromeClient());
         urlEdit.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {

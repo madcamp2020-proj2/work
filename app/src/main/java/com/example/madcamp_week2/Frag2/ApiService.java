@@ -24,7 +24,7 @@ public interface ApiService {
     );
 
     @Multipart
-    @POST("/upload/:multi")
+    @POST("/upload/multi")
     Call<ResponseBody> postMultiImage(
             @Part List<MultipartBody.Part> files,
             @Part("upload") RequestBody name
