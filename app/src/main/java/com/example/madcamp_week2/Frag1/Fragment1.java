@@ -73,24 +73,14 @@ public class Fragment1 extends Fragment {
 //        list = Contacts.createContactsList(getActivity());
         AscendingName ascending = new AscendingName();
 
-        TextView update = rootView.findViewById(R.id.update);
-
-        Button uploadbtn = (Button)rootView.findViewById(R.id.upload);
-        uploadbtn.setOnClickListener(new View.OnClickListener(){
+        Button uploadbtn = rootView.findViewById(R.id.upload);
+        uploadbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new JSONTask().execute("http://192.249.18.210:3000/post");
+                Log.d("asdf", "clicked");
+                new JSONTask().execute("http://192.249.18.236:3000/post");
             }
         });
-
-        Button downloadbtn = (Button)rootView.findViewById(R.id.download);
-        downloadbtn.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v){
-                new JSONTask().execute("http://192.249.18.210:3000/receive");
-            }
-        });
-
 
 
         //리사이클러뷰 나누는 선
@@ -272,6 +262,10 @@ public class Fragment1 extends Fragment {
         public int compare(Contacts o1, Contacts o2) {
             return o1.getName().compareTo(o2.getName());
         }
+    }
+
+    private void postCantact() {
+
     }
 
 }

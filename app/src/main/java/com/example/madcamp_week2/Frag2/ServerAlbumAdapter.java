@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -75,7 +76,7 @@ public class ServerAlbumAdapter extends RecyclerView.Adapter<ServerAlbumAdapter.
             @Override
             public void onClick(View v) {
                 Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-                String url = "http://192.249.18.236:3000";
+                String url = BASE_URL;
                 Log.d("result: ", " : clicked download button");
                 downloadImageNew("" + timestamp.getTime(), url + holder.url);
             }
@@ -103,6 +104,7 @@ public class ServerAlbumAdapter extends RecyclerView.Adapter<ServerAlbumAdapter.
                 Log.d("Status: ", "connection complete");
                 urlList.remove(location);
                 notifyDataSetChanged();
+                Toast.makeText(context, "삭제되었습니다.", Toast.LENGTH_SHORT);
             }
 
             @Override
@@ -124,6 +126,7 @@ public class ServerAlbumAdapter extends RecyclerView.Adapter<ServerAlbumAdapter.
                     .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
                     .setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, File.separator + filename + ".jpg");
             dm.enqueue(request);
+            Toast.makeText(context, "저장되었습니다.", Toast.LENGTH_SHORT);
         } catch (Exception e) {
             Log.d("result: ", "Downloads fail");
         }
