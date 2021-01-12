@@ -5,13 +5,11 @@ import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.Intent;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.ShapeDrawable;
-import android.graphics.drawable.shapes.OvalShape;
 import android.graphics.drawable.shapes.RectShape;
 import android.net.Uri;
 import android.os.Build;
@@ -22,7 +20,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.view.View;
-import android.widget.Toast;
 import android.widget.Button;
 
 import com.example.madcamp_week2.MainActivity;
@@ -50,7 +47,6 @@ public class ContactsEditActivity extends AppCompatActivity {
 //        String phNumbers = intent.getExtras().getString("phNumbers");
 
         Contacts item = intent.getParcelableExtra("Contacts");
-        //pubextra로 넘긴 parcelable 받아올때 사용
         tx1.setText(item.name);
         tx2.setText(item.phNumbers);
         Bitmap profile = loadContactPhoto(getApplicationContext().getContentResolver(), item.id, item.photo_id);

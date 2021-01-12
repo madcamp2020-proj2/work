@@ -1,24 +1,21 @@
 package com.example.madcamp_week2.Activity;
 
+import com.example.madcamp_week2.MainActivity;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
-import com.facebook.appevents.AppEventsLogger;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.madcamp_week2.MainActivity;
 import com.example.madcamp_week2.R;
-import com.facebook.login.Login;
+import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 
@@ -30,6 +27,10 @@ public class SplashActivity extends AppCompatActivity {
 
     private CallbackManager callbackManager;
 
+    public void onStop(){
+        super.onStop();
+        LoginManager.getInstance().logOut();
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,11 +47,12 @@ public class SplashActivity extends AppCompatActivity {
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
+                finish();
+                startActivity(new Intent(getApplication(), MainActivity.class));
                 GraphRequest graphRequest = GraphRequest.newMeRequest(loginResult.getAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
                     @Override
                     public void onCompleted(JSONObject object, GraphResponse response) {
-                        startActivity(new Intent(getApplication(), MainActivity.class)); // 로딩 끝나고, 메인으로
-                        finish();
+                        // 로딩 끝나고, 메인으로
                         Log.v("result",object.toString());
                     }
                 });
@@ -65,6 +67,7 @@ public class SplashActivity extends AppCompatActivity {
             public void onCancel() {
 
             }
+
 
             @Override
             public void onError(FacebookException error) {

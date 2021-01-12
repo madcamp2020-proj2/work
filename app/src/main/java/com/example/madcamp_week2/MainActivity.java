@@ -10,7 +10,6 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 
 import com.example.madcamp_week2.Activity.ViewpagerAdapter;
-import com.example.madcamp_week2.R;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
