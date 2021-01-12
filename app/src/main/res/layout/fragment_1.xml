@@ -16,27 +16,6 @@
 
 
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/upload"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="업로드"
-            android:layout_weight="1"/>
-
-        <Button
-            android:id="@+id/download"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="다운로드"
-            android:layout_weight="1"/>
-
-    </LinearLayout>
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler1"
         android:layout_width="match_parent"
